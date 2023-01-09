@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Icon } from "semantic-ui-react";
 import { useFormik } from "formik";
 import { initialValues, validationSchema } from "./RegisterForm.data";
+import { Auth } from "../../../api";
 
 import "./RegisterForm.scss";
 
+const auth = new Auth();
+
 export const RegisterForm = ({ changeForm }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   const formik = useFormik({
     validationSchema: validationSchema(),
     validateOnChange: false,
     initialValues: initialValues(),
-    onSubmit: (formValue) => {},
+    onSubmit: async (formValue) => {
+      try {
+        await auth.register(formValue.email, formValue.password);
+      } catch (error) {}
+    },
   });
 
   return (
@@ -32,14 +45,8 @@ export const RegisterForm = ({ changeForm }) => {
           value={formik.values.password}
           onChange={formik.handleChange}
           placeholder="Contraseña"
-          type="password"
-          icon={
-            <Icon
-              name="eye"
-              link
-              onClick={() => console.log("Show password")}
-            />
-          }
+          type={showPassword ? "text" : "password"}
+          icon={<Icon name="eye" link onClick={handleShowPassword} />}
           error={formik.errors.password}
         />
 

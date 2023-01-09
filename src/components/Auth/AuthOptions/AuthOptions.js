@@ -1,25 +1,27 @@
 import React from "react";
 import { Button } from "semantic-ui-react";
+import "./AuthOptions.scss";
 
 export const AuthOptions = ({ changeForm }) => {
   return (
-    <div style={{ backgroundColor: "#000" }}>
-      <h1>Auth Options</h1>
+    <div className="auth-options">
+      <h1>Millones de canciones gratis en Musicfy</h1>
+
       <Button
-        primary
-        onClick={() => {
-          changeForm("login");
-        }}
-      >
-        Login
-      </Button>
-      <Button
-        secondary
+        className="register"
         onClick={() => {
           changeForm("register");
         }}
       >
-        Registro
+        Regístrate gratis
+      </Button>
+      <Button
+        className="login"
+        onClick={() => {
+          changeForm("login");
+        }}
+      >
+        Inicia sesión
       </Button>
     </div>
   );

@@ -1,14 +1,19 @@
 import "./App.scss";
-import { Button } from "semantic-ui-react";
+import { useState } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { LoggedNavigation } from "./routes/LoggedNavigation";
+import { Auth } from "./pages";
 
 function App() {
-  return (
-    <div>
-      <h1>Hola musicfy</h1>
-      <Button primary>Click Here</Button>
-      <Button secondary>Click Here</Button>
-    </div>
-  );
+  const [currentUser, setCurrentUser] = useState(undefined);
+  const auth = getAuth();
+
+  onAuthStateChanged(auth, (user) => {
+    setCurrentUser(user);
+  });
+
+  if (currentUser === undefined) return null;
+  return currentUser ? <LoggedNavigation /> : <Auth />;
 }
 
 export default App;

@@ -1,4 +1,6 @@
 import React from "react";
+import { LeftMenu } from "../../components/Layout";
+import { TopBar } from "../../components/Layout/TopBar/TopBar";
 import "./LoggedLayout.scss";
 
 export const LoggedLayout = ({ children }) => {
@@ -6,10 +8,12 @@ export const LoggedLayout = ({ children }) => {
     <div className="logged-layout">
       <div className="logged-layout__content">
         <div className="logged-layout__left-menu">
-          <p>LEFT MENU</p>
+          <LeftMenu />
         </div>
         <div className="logged-layout__children-content">
-          <div className="logged-layout__top-bar">TOPBAR</div>
+          <div className="logged-layout__top-bar">
+            <TopBar />
+          </div>
           <div>{children}</div>
         </div>
       </div>
